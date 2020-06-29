@@ -1,5 +1,5 @@
-from src.ui.mainwindow import Ui_MainWindow
-
+#from src.ui.mainwindow import Ui_MainWindow
+from src.ui.mainwindow2 import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow
 
 
