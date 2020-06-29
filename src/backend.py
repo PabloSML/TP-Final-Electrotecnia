@@ -66,21 +66,22 @@ def respuesta(filtro,entrada,A, w, t):
 #   sys: funcion de transferencia
 #   pcolor: color de los polos.
 #   zcolor: color de los ceros.
-def plotZerosPoles(sys,pcolor='blue', zcolor ='red'):
-    plt.figure()
-    plt.axis('equal')
+def plotZerosPoles(self, sys, pcolor='blue', zcolor='red'):
+    self.axes.clear()
+    self.axes.axis('equal')
     sys2 = signal.TransferFunction([1, 0, -9], [1, -8, 17])
     # ax = plt.axes()
     # plot unit circle
     theta = np.linspace(-np.pi, np.pi, 201)
-    plt.plot(np.sin(theta), np.cos(theta), color='gray', linewidth=0.2)
+    self.axes.plot(np.sin(theta), np.cos(theta), color='gray', linewidth=0.2)
     # plot x-y axis
-    plt.axhline(y=0, color='gray', linewidth=1)
-    plt.axvline(x=0, color='gray', linewidth=1)
-    plt.plot(np.real(sys.poles), np.imag(sys.poles), 'x', label='Poles', markersize=9, color='none',
-             markeredgecolor= pcolor)
-    plt.plot(np.real(sys.zeros), np.imag(sys.zeros), 'o', label='Zeros', markersize=9, color='none',
-             markeredgecolor= zcolor)
-    plt.minorticks_on()
-    plt.legend()
+    self.axes.axhline(y=0, color='gray', linewidth=1)
+    self.axes.axvline(x=0, color='gray', linewidth=1)
+    self.axes.plot(np.real(sys.poles), np.imag(sys.poles), 'x', label='Poles', markersize=9, color='none',
+                   markeredgecolor=pcolor)
+    self.axes.plot(np.real(sys.zeros), np.imag(sys.zeros), 'o', label='Zeros', markersize=9, color='none',
+                   markeredgecolor=zcolor)
+    self.axes.minorticks_on()
+    self.axes.legend()
+    self.canvas.draw()
 

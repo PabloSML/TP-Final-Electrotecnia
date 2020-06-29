@@ -3,6 +3,7 @@
 from src.ui.mainwindow2 import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
+import src.backend as bck
 
 # Matplotlib Modules
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
@@ -10,6 +11,7 @@ from matplotlib.figure import Figure
 
 # Python Module
 import numpy as np
+from scipy import signal
 
 class MplCanvas(FigureCanvas):
 
@@ -36,11 +38,11 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
         # De Alan, me lo quedo por las dudas
         # # Creates figure and canvas.
-        # self.figure = Figure()
-        # self.canvas = FigureCanvas(self.figure)
+        self.figure = Figure()
+        self.canvas = FigureCanvas(self.figure)
 
-        # Testing example
-        self.canvas = MplCanvas(self, width=0, height=0, dpi=100)
+        # # Testing example
+        # self.canvas = MplCanvas(self, width=0, height=0, dpi=100)
 
         # Create toolbar, passing canvas as first parament, parent (self, the MainWindow) as second.
         toolbar = NavigationToolbar(self.canvas, self)
@@ -48,6 +50,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
         plot_layout = QtWidgets.QVBoxLayout()
         plot_layout.addWidget(toolbar)
         plot_layout.addWidget(self.canvas)
+
         plot_widget = QtWidgets.QWidget()
         plot_widget.setLayout(plot_layout)
 
@@ -58,13 +61,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
         # De Alan, me lo quedo por las dudas
         #
         # # Adds axes to figure.
-        # self.axes = self.figure.add_subplot()
-
-
+        self.axes = self.figure.add_subplot()
 
         #Connections to callbacks
         self.filterOrder.currentIndexChanged.connect(self.order_change)
         self.inputType.currentIndexChanged.connect(self.input_change)
+        self.simButton.pressed.connect(self.testBackend)
 
     #METODOS DE UI VISUALES
 
@@ -178,3 +180,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
             self.hide_sin_input()
 
     #METODOS DE UI LOGICOS
+
+    def testBackend(self):
+        bck.plotZerosPoles(self, bck.pasabajos(1,1,1))
+
