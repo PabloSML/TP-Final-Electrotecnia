@@ -1,7 +1,22 @@
+# Qt Modules
 #from src.ui.mainwindow import Ui_MainWindow
 from src.ui.mainwindow2 import Ui_MainWindow
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
 
+# Matplotlib Modules
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
+
+# Python Module
+import numpy as np
+
+class MplCanvas(FigureCanvas):
+
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)
+        self.axes = fig.add_subplot(111)
+        super(MplCanvas, self).__init__(fig)
 
 class myWidget (QMainWindow, Ui_MainWindow):
 
@@ -9,13 +24,45 @@ class myWidget (QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
 
+        #Initial setup
         self.setupUi(self)
         self.setWindowTitle("SIMBA")
+
+        #Hide assets for first use
         self.hide_order_one()
         self.hide_order_two()
         self.hide_pulse_input()
         self.hide_sin_input()
 
+        # De Alan, me lo quedo por las dudas
+        # # Creates figure and canvas.
+        # self.figure = Figure()
+        # self.canvas = FigureCanvas(self.figure)
+
+        # Testing example
+        self.canvas = MplCanvas(self, width=0, height=0, dpi=100)
+
+        # Create toolbar, passing canvas as first parament, parent (self, the MainWindow) as second.
+        toolbar = NavigationToolbar(self.canvas, self)
+
+        plot_layout = QtWidgets.QVBoxLayout()
+        plot_layout.addWidget(toolbar)
+        plot_layout.addWidget(self.canvas)
+        plot_widget = QtWidgets.QWidget()
+        plot_widget.setLayout(plot_layout)
+
+        # Sets current index in canvas to show plot.
+        canvas_index = self.graphics.addWidget(plot_widget)
+        self.graphics.setCurrentIndex(canvas_index)
+
+        # De Alan, me lo quedo por las dudas
+        #
+        # # Adds axes to figure.
+        # self.axes = self.figure.add_subplot()
+
+
+
+        #Connections to callbacks
         self.filterOrder.currentIndexChanged.connect(self.order_change)
         self.inputType.currentIndexChanged.connect(self.input_change)
 

@@ -281,12 +281,15 @@ class Ui_MainWindow(object):
         self.simButton.setObjectName("simButton")
         self.horizontalLayout_simButton_wrap.addWidget(self.simButton)
         self.horizontalLayout_main.addLayout(self.horizontalLayout_simButton_wrap)
-        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(90, 40, 1191, 631))
-        self.tabWidget.setObjectName("tabWidget")
-        self.tab = QtWidgets.QWidget()
-        self.tab.setObjectName("tab")
-        self.tabWidget.addTab(self.tab, "")
+        self.graphics = QtWidgets.QStackedWidget(self.centralwidget)
+        self.graphics.setGeometry(QtCore.QRect(90, 20, 1191, 641))
+        self.graphics.setObjectName("graphics")
+        self.page = QtWidgets.QWidget()
+        self.page.setObjectName("page")
+        self.graphics.addWidget(self.page)
+        self.page_2 = QtWidgets.QWidget()
+        self.page_2.setObjectName("page_2")
+        self.graphics.addWidget(self.page_2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1404, 21))
@@ -297,7 +300,6 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -383,7 +385,6 @@ class Ui_MainWindow(object):
         self.plotType.setItemText(2, _translate("MainWindow", "Bode"))
         self.plotType.setItemText(3, _translate("MainWindow", "Polos/Ceros"))
         self.simButton.setText(_translate("MainWindow", "Simular"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Plot"))
 
 
 if __name__ == "__main__":
