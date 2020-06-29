@@ -47,10 +47,10 @@ def notch(k,wo,e):
     return signal.TransferFunction([k/(wo**2), 0,1], [(1 / wo) ** 2, 2 * e / wo, 1])
 
 # Set grids
-def setgrids():
-    plt.minorticks_on()
-    plt.grid(which='major', color='black', linewidth=0.8, linestyle='--')
-    plt.grid(which='minor', color='black', linewidth=0.4, linestyle=':')
+def setgrids(self):
+    self.axes.minorticks_on()
+    self.axes.grid(which='major', color='black', linewidth=0.8, linestyle='--')
+    self.axes.grid(which='minor', color='black', linewidth=0.4, linestyle=':')
 
 #Respuesta a la entrada
 #   Entrada: 'sin' o 'pulso'
