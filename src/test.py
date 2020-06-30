@@ -259,3 +259,17 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
         for key in self.data:
             print(self.data[key])
+
+    def PlotGraph(self):
+        if self.data["plotType"] == "Salida":
+            bck.plotOutput(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
+                                                   self.data["w"], self.data["psy"]), self.data["inputType"],
+                           self.data["A"], self.data["f"], self.data["t"])
+
+        elif self.data["plotType"] == "Bode":
+            bck.plotBode(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
+                                                   self.data["w"], self.data["psy"]))
+
+        elif self.data["plotType"] == "Polos/Ceros":
+            bck.plotZerosPoles(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
+                                                   self.data["w"], self.data["psy"]))

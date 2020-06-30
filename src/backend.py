@@ -53,13 +53,13 @@ def setgrids(self_axes):
     self_axes.grid(which='minor', color='black', linewidth=0.4, linestyle=':')
 
 #Respuesta a la entrada
-#   Entrada: 'sin' o 'pulso'
+#   Entrada: 'Senoide' o 'Pulso'
 #   t:intervalo de tiempo
 #Devuelve la respuesta de salida
-def respuesta(filtro,entrada,A, w, t):
-    if entrada == 'sin':
-        return signal.lsim(filtro,U=A*sin(w*t),T=t)
-    elif entrada == 'pulso':
+def respuesta(filtro,entrada,A, f, t):
+    if entrada == 'Senoide':
+        return signal.lsim(filtro,U=A*sin(np.pi*f*t),T=t)
+    elif entrada == 'Pulso':
         return signal.lsim(filtro,U=[A for i in t],T=t)
 
 #Plot de los ceros y polos de la funcion de transferencia.
@@ -104,29 +104,43 @@ def plotBode(self,sys):
     self.canvas.draw()
     #self.figure.delaxes(self.axes)
     self.figure.delaxes(ax2)
-    print('aca')
     #self.axes=self.figure.add_subplot(1,1,1)
 
 #Plot de la respuesta a la entrada
 #   inputtype: 'sin' o 'pulso'
 #   t:intervalo de tiempo
 #Devuelve la respuesta de salida
-def plotOutput(self,sys,inputtype,A,w,t):
+def plotOutput(self,sys,inputtype,A,f,t):
     self.figure.delaxes(self.axes)
     self.axes = self.figure.add_subplot(1, 1, 1)
     #self.axes.clear()
-    output=respuesta(sys,inputtype,A,w,t)
+    output=respuesta(sys,inputtype,A,f,t)
     self.axes.plot(output[0],output[1])
     self.axes.set_xlabel('Tiempo (s)')
     self.axes.set_ylabel('Amplitud')
     setgrids(self.axes)
     self.canvas.draw()
 
-
+#Conversion de G a K segun orden y tipo de filtro
+#   orden: 1,2
+#   filtertype: "Pasa Bajos","Pasa Altos", "Pasa Todo", "Pasa Banda", "Notch"
 def G2K(G,orden,filtertype,w,e):
-    if filtertype=='pasabajos' or filtertype=='pasatodo' or filtertype=='notch' :
+    if filtertype=='Pasa Bajos' or filtertype=='Pasa Todo' or filtertype=='Notch' :
         return G
-    if filtertype=='pasaaltos':
+    if filtertype=='Pasa Altos':
         return G*(1/w)**orden
-    if filtertype=='pasabanda':
+    if filtertype=='Pasa Banda':
         return G*2*e/w
+
+#Devuelve la funcion de transferencia dependiendo del filtro
+def filterHandler(filtro,orden,k,w,e=0):
+    if filtro == "Pasa Bajos":
+        return pasabajos(orden,k,w,e)
+    elif filtro == "Pasa Altos":
+        return pasaaltos(orden,k,w,e)
+    elif filtro == "Pasa Todo":
+        return pasatodo(orden,k,w,e)
+    elif filtro == "Pasa Banda":
+        return pasabanda(k,w,e)
+    elif filtro == "Notch":
+        return notch(k,w,e)
