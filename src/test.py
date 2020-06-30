@@ -310,8 +310,8 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
         elif self.data["plotType"] == "Bode":
             bck.plotBode(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
-                                                   self.data["w"], self.data["psy"]))
+                                                   self.data["w"], self.data["T"], self.data["psy"]))
 
         elif self.data["plotType"] == "Polos/Ceros":
             bck.plotZerosPoles(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
-                                                   self.data["w"], self.data["psy"]))
+                                                   self.data["w"], self.data["T"], self.data["psy"]))
