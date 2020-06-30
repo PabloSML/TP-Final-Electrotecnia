@@ -58,10 +58,10 @@ def setgrids(self_axes):
 #Devuelve la respuesta de salida
 def respuesta(filtro,entrada,A, f):
     if entrada == 'Senoide':
-        t=np.linspace(0,(5/f),num=1000)
+        t=np.linspace(0,(500/f),num=100000)
         return signal.lsim(filtro,U=A*sin(2*np.pi*f*t),T=t)
     elif entrada == 'Pulso':
-        t = np.linspace(0, 10, num=1000)
+        t = np.linspace(0, 10000, num=100000)
         return signal.lsim(filtro,U=[A for i in t],T=t)
 
 #Plot de los ceros y polos de la funcion de transferencia.
@@ -69,11 +69,11 @@ def respuesta(filtro,entrada,A, f):
 #   pcolor: color de los polos.
 #   zcolor: color de los ceros.
 def plotZerosPoles(self, sys, pcolor='blue', zcolor='red'):
-    self.figure.delaxes(self.axes)
-    self.axes = self.figure.add_subplot(1, 1, 1)
+    # self.figure.delaxes(self.axes)
+    # self.axes = self.figure.add_subplot(1, 1, 1)
+    self.axes.clear()
     self.axes.axis('equal')
     sys2 = signal.TransferFunction([1, 0, -9], [1, -8, 17])
-    # ax = plt.axes()
     # plot unit circle
     theta = np.linspace(-np.pi, np.pi, 201)
     self.axes.plot(np.sin(theta), np.cos(theta), color='gray', linewidth=0.2)
@@ -89,37 +89,42 @@ def plotZerosPoles(self, sys, pcolor='blue', zcolor='red'):
     self.canvas.draw()
 
 #Plot del diagrama de Bode
-def plotBode(self,sys):
-    self.figure.delaxes(self.axes)
-    w, mag, phase = signal.bode(sys)
+def plotBodeMag(self,sys):
     self.axes.clear()
-    self.axes=self.figure.add_subplot(1,2,1)
-    ax2 = self.figure.add_subplot(1, 2, 2)
+    w, mag, phase = signal.bode(sys)
     self.axes.semilogx(w/(2*np.pi), mag)    # Bode magnitude plot
     self.axes.set_xlabel('Frecuencia (Hz)')
     self.axes.set_ylabel('Amplitud (dB)')
     setgrids(self.axes)
-    ax2.semilogx(w/(2*np.pi), phase)  # Bode phase plot
-    ax2.set_xlabel('Frecuencia (Hz)')
-    ax2.set_ylabel('Fase (°)')
-    setgrids(ax2)
     self.canvas.draw()
-    #self.figure.delaxes(self.axes)
-    self.figure.delaxes(ax2)
-    #self.axes=self.figure.add_subplot(1,1,1)
+
+#Plot diagrama de fase de Bode
+def plotBodePhase(self,sys):
+    self.axes.clear()
+    w, mag, phase = signal.bode(sys)
+    self.axes.semilogx(w / (2 * np.pi), phase)  # Bode phase plot
+    self.axes.set_xlabel('Frecuencia (Hz)')
+    self.axes.set_ylabel('Fase (°)')
+    setgrids(self.axes)
+    self.canvas.draw()
+
 
 #Plot de la respuesta a la entrada
 #   inputtype: 'sin' o 'pulso'
 #   t:intervalo de tiempo
 #Devuelve la respuesta de salida
 def plotOutput(self,sys,inputtype,A,f):
-    self.figure.delaxes(self.axes)
-    self.axes = self.figure.add_subplot(1, 1, 1)
-    #self.axes.clear()
+    # self.figure.delaxes(self.axes)
+    # self.axes = self.figure.add_subplot(1, 1, 1)
+    self.axes.clear()
     output=respuesta(sys,inputtype,A,f)
     self.axes.plot(output[0],output[1])
     self.axes.set_xlabel('Tiempo (s)')
     self.axes.set_ylabel('Amplitud')
+    if inputtype == "Senoide":
+        self.axes.set_xlim(0,(5/f))
+    elif inputtype == "Pulso":
+        self.axes.set_xlim(0, 100)
     setgrids(self.axes)
     self.canvas.draw()
 
