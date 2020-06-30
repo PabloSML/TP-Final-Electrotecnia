@@ -9,16 +9,9 @@ import src.backend as bck
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
-# Python Module
-import numpy as np
-from scipy import signal
-
-class MplCanvas(FigureCanvas):
-
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
-        fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes = fig.add_subplot(111)
-        super(MplCanvas, self).__init__(fig)
+# # Python Module       BORRAR SI NO SE USA
+# import numpy as np
+# from scipy import signal
 
 class myWidget (QMainWindow, Ui_MainWindow):
 
@@ -36,13 +29,9 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.hide_pulse_input()
         self.hide_sin_input()
 
-        # De Alan, me lo quedo por las dudas
         # # Creates figure and canvas.
         self.figure = Figure()
         self.canvas = FigureCanvas(self.figure)
-
-        # # Testing example
-        # self.canvas = MplCanvas(self, width=0, height=0, dpi=100)
 
         # Create toolbar, passing canvas as first parament, parent (self, the MainWindow) as second.
         toolbar = NavigationToolbar(self.canvas, self)
@@ -58,8 +47,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
         canvas_index = self.graphics.addWidget(plot_widget)
         self.graphics.setCurrentIndex(canvas_index)
 
-        # De Alan, me lo quedo por las dudas
-        #
         # # Adds axes to figure.
         self.axes = self.figure.add_subplot()
 
@@ -78,6 +65,16 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_T.hide()
         self.unitsDDown_T.setCurrentIndex(0)
         self.unitsDDown_T.hide()
+        self.label_K.hide()
+        self.lineEdit_K.clear()
+        self.lineEdit_K.hide()
+        self.unitsDDown_K.setCurrentIndex(0)
+        self.unitsDDown_K.hide()
+        self.label_G.hide()
+        self.lineEdit_G.clear()
+        self.lineEdit_G.hide()
+        self.unitsDDown_G.setCurrentIndex(0)
+        self.unitsDDown_G.hide()
 
         if self.simButton.isChecked():
             self.simButton.toggle()
@@ -87,6 +84,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.label_T.show()
         self.lineEdit_T.show()
         self.unitsDDown_T.show()
+        self.label_K.show()
+        self.lineEdit_K.show()
+        self.unitsDDown_K.show()
+        self.label_G.show()
+        self.lineEdit_G.show()
+        self.unitsDDown_G.show()
 
     def hide_order_two(self):
         self.filterType2.setCurrentIndex(0)
@@ -101,6 +104,16 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.unitsDDown_w.hide()
         self.unitsDDown_psy.setCurrentIndex(0)
         self.unitsDDown_psy.hide()
+        self.label_K.hide()
+        self.lineEdit_K.clear()
+        self.lineEdit_K.hide()
+        self.unitsDDown_K.setCurrentIndex(0)
+        self.unitsDDown_K.hide()
+        self.label_G.hide()
+        self.lineEdit_G.clear()
+        self.lineEdit_G.hide()
+        self.unitsDDown_G.setCurrentIndex(0)
+        self.unitsDDown_G.hide()
 
         if self.simButton.isChecked():
             self.simButton.toggle()
@@ -113,6 +126,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_psy.show()
         self.unitsDDown_w.show()
         self.unitsDDown_psy.show()
+        self.label_K.show()
+        self.lineEdit_K.show()
+        self.unitsDDown_K.show()
+        self.label_G.show()
+        self.lineEdit_G.show()
+        self.unitsDDown_G.show()
 
     def order_change(self):
         if self.filterOrder.currentIndex() == 1:
