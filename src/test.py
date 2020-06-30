@@ -2,7 +2,7 @@
 #from src.ui.mainwindow import Ui_MainWindow
 from src.ui.mainwindow2 import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 import src.backend as bck
 
 # Matplotlib Modules
@@ -30,6 +30,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
             "filterType": None,
             "inputType": None,
             "plotType": None,
+            "ampOrFase": None,
             "T": None,
             "w": None,
             "psy": None,
@@ -43,6 +44,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.hide_order_two()
         self.hide_pulse_input()
         self.hide_sin_input()
+        self.ampOrFase.hide()
 
         # # Creates figure and canvas.
         self.figure = Figure()
@@ -67,11 +69,13 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
         # Connections to callbacks
         # New filter order chosen
-        self.filterOrder.currentIndexChanged.connect(self.order_change)
+        self.filterOrder.currentIndexChanged.connect(self.orderChange)
         # Switched between K and G
         self.comboBox_KG.currentIndexChanged.connect(self.kgChange)
         # New input type chosen
-        self.inputType.currentIndexChanged.connect(self.input_change)
+        self.inputType.currentIndexChanged.connect(self.inputChange)
+        # New plot type chosen
+        self.plotType.currentIndexChanged.connect(self.plotChange)
         # Intro pressed on data field
         self.lineEdit_T.returnPressed.connect(self.dataInput)
         self.lineEdit_w.returnPressed.connect(self.dataInput)
@@ -90,14 +94,10 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.label_T.hide()
         self.lineEdit_T.clear()
         self.lineEdit_T.hide()
-        self.unitsDDown_T.setCurrentIndex(0)
-        self.unitsDDown_T.hide()
         self.comboBox_KG.setCurrentIndex(0)
         self.comboBox_KG.hide()
         self.lineEdit_KG.clear()
         self.lineEdit_KG.hide()
-        self.unitsDDown_KG.setCurrentIndex(0)
-        self.unitsDDown_KG.hide()
 
         if self.simButton.isChecked():
             self.simButton.toggle()
@@ -106,10 +106,8 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.filterType.show()
         self.label_T.show()
         self.lineEdit_T.show()
-        self.unitsDDown_T.show()
         self.comboBox_KG.show()
         self.lineEdit_KG.show()
-        self.unitsDDown_KG.show()
 
     def hide_order_two(self):
         self.filterType2.setCurrentIndex(0)
@@ -120,16 +118,10 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_w.hide()
         self.lineEdit_psy.clear()
         self.lineEdit_psy.hide()
-        self.unitsDDown_w.setCurrentIndex(0)
-        self.unitsDDown_w.hide()
-        self.unitsDDown_psy.setCurrentIndex(0)
-        self.unitsDDown_psy.hide()
         self.comboBox_KG.setCurrentIndex(0)
         self.comboBox_KG.hide()
         self.lineEdit_KG.clear()
         self.lineEdit_KG.hide()
-        self.unitsDDown_KG.setCurrentIndex(0)
-        self.unitsDDown_KG.hide()
 
         if self.simButton.isChecked():
             self.simButton.toggle()
@@ -140,18 +132,13 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.label_psy.show()
         self.lineEdit_w.show()
         self.lineEdit_psy.show()
-        self.unitsDDown_w.show()
-        self.unitsDDown_psy.show()
         self.comboBox_KG.show()
         self.lineEdit_KG.show()
-        self.unitsDDown_KG.show()
 
     def hide_pulse_input(self):
         self.label_A.hide()
         self.lineEdit_A.clear()
         self.lineEdit_A.hide()
-        self.unitsDDown_A.setCurrentIndex(0)
-        self.unitsDDown_A.hide()
 
         if self.simButton.isChecked():
             self.simButton.toggle()
@@ -159,7 +146,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
     def show_pulse_input(self):
         self.label_A.show()
         self.lineEdit_A.show()
-        self.unitsDDown_A.show()
 
     def hide_sin_input(self):
         self.label_A.hide()
@@ -168,10 +154,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_A.hide()
         self.lineEdit_f.clear()
         self.lineEdit_f.hide()
-        self.unitsDDown_A.setCurrentIndex(0)
-        self.unitsDDown_A.hide()
-        self.unitsDDown_f.setCurrentIndex(0)
-        self.unitsDDown_f.hide()
 
         if self.simButton.isChecked():
             self.simButton.toggle()
@@ -181,13 +163,11 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.label_f.show()
         self.lineEdit_A.show()
         self.lineEdit_f.show()
-        self.unitsDDown_A.show()
-        self.unitsDDown_f.show()
 
 
     #METODOS DE UI LOGICOS
 
-    def order_change(self):
+    def orderChange(self):
 
         if self.filterOrder.currentIndex() == 1:
             self.hide_order_two()
@@ -210,7 +190,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
         if self.simButton.isChecked():
             self.simButton.setChecked(False)
 
-    def input_change(self):
+    def inputChange(self):
 
         if self.inputType.currentIndex() == 1:
             self.hide_pulse_input()
@@ -223,6 +203,13 @@ class myWidget (QMainWindow, Ui_MainWindow):
         else:
             self.hide_pulse_input()
             self.hide_sin_input()
+
+    def plotChange(self):
+
+        if self.plotType.currentText() == "Bode":
+            self.ampOrFase.show()
+        else:
+            self.ampOrFase.hide()
 
     def simButtonPressed(self):
 
@@ -238,35 +225,58 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
     def activateAwesomeness(self):
         if self.simButton.isChecked():
-            self.collectData()
-            if self.dataIsValid():
+            if self.collectData():
                 self.plotGraph()
             else:
-                print("Missing data")
+                msg = QMessageBox()
+                msg.setWindowTitle("Faltan Datos!")
+                msg.setText("Debe ingresar todos los parámetros para simular!")
+                msg.setIcon(QMessageBox.Warning)
+                msg.exec_()
 
     def collectData(self):
+        allGHomie = True
 
         if self.filterOrder.currentIndex() != 0:
             self.data["filterOrder"] = self.filterOrder.currentIndex()
-
             if self.data["filterOrder"] == 1:
                 if self.filterType.currentIndex() != 0:
                     self.data["filterType"] = self.filterType.currentText()
+                else:
+                    allGHomie = False
                 if self.lineEdit_T.text() != "":
                     self.data["T"] = np.float(self.lineEdit_T.text())
+                else:
+                    allGHomie = False
             elif self.data["filterOrder"] == 2:
                 if self.filterType2.currentIndex() != 0:
                     self.data["filterType"] = self.filterType2.currentText()
+                else:
+                    allGHomie = False
                 if self.lineEdit_w.text() != "":
                     self.data["w"] = np.float(self.lineEdit_w.text())
+                else:
+                    allGHomie = False
                 if self.lineEdit_psy.text() != "":
                     self.data["psy"] = np.float(self.lineEdit_psy.text())
+                else:
+                    allGHomie = False
             if self.inputType.currentIndex() != 0:
                 self.data["inputType"] = self.inputType.currentText()
                 if self.inputType.currentText() == "Senoide" and self.lineEdit_f.text() != "":
                     self.data["f"] = np.float(self.lineEdit_f.text())
+                else:
+                    allGHomie = False
+            else:
+                allGHomie = False
             if self.plotType.currentIndex() != 0:
                 self.data["plotType"] = self.plotType.currentText()
+                if self.plotType.currentText() == "Bode":
+                    self.data["ampOrFase"] = self.ampOrFase.currentText()
+                else:
+                    self.data["ampOrFase"] = None
+            else:
+                allGHomie = False
             if self.lineEdit_KG.text() != "":
                 if self.comboBox_KG.currentText() == "K":
                     self.data["K"] = np.float(self.lineEdit_KG.text())
@@ -274,48 +284,63 @@ class myWidget (QMainWindow, Ui_MainWindow):
                     g = np.float(self.lineEdit_KG.text())
                     self.data["K"] = bck.G2K(g, self.data["filterOrder"],
                                              self.data["filterType"], self.data["w"], self.data["psy"])
+            else:
+                allGHomie = False
             if self.lineEdit_A.text() != "":
                 self.data["A"] = np.float(self.lineEdit_A.text())
+            else:
+                allGHomie = False
+        else:
+            allGHomie = False
 
         for key in self.data:
             print(self.data[key])
 
-    def dataIsValid(self):
+        if allGHomie == False:
+            self.dumpData()
 
-        if self.data["filterType"] == None:
-            return False
-        if self.data["plotType"] == None:
-            return False
-        if self.data["K"] == None:
-            return False
-        if self.data["A"] == None:
-            return False
-        if self.data["inputType"] == None:
-            return False
-        elif self.data["inputType"] == "Senoide" and self.data["f"] == None:
-            return False
-        if self.data["filterOrder"] == 1:
-            if self.data["T"] == None:
-                return False
-        elif self.data["filterOrder"] == 2:
-            if self.data["w"] == None or self.data["psy"] == None:
-                return False
-        else:
-            return False
+        return allGHomie
+
+    # def dataIsValid(self):
+    #
+    #     if self.data["filterType"] == None:
+    #         return False
+    #     if self.data["plotType"] == None:
+    #         return False
+    #     if self.data["K"] == None:
+    #         return False
+    #     if self.data["A"] == None:
+    #         return False
+    #     if self.data["inputType"] == None:
+    #         return False
+    #     elif self.data["inputType"] == "Senoide" and self.data["f"] == None:
+    #         return False
+    #     if self.data["filterOrder"] == 1:
+    #         if self.data["T"] == None:
+    #             return False
+    #     elif self.data["filterOrder"] == 2:
+    #         if self.data["w"] == None or self.data["psy"] == None:
+    #             return False
+    #     else:
+    #         return False
 
         return True
 
+    def dumpData(self):
+
+        for key in self.data:
+            self.data[key] = None
 
     def plotGraph(self):
         if self.data["plotType"] == "Salida":
-            bck.plotOutput(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
+            bck.plotOutput(self, bck.filterHandler(self.data["filterType"], self.data["filterOrder"], self.data["K"],
                                                    self.data["w"], self.data["T"], self.data["psy"]), self.data["inputType"],
                            self.data["A"], self.data["f"])
 
         elif self.data["plotType"] == "Bode":
-            bck.plotBode(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
+            bck.plotBode(self, bck.filterHandler(self.data["filterType"], self.data["filterOrder"], self.data["K"],
                                                    self.data["w"], self.data["T"], self.data["psy"]))
 
         elif self.data["plotType"] == "Polos/Ceros":
-            bck.plotZerosPoles(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
+            bck.plotZerosPoles(self, bck.filterHandler(self.data["filterType"], self.data["filterOrder"], self.data["K"],
                                                    self.data["w"], self.data["T"], self.data["psy"]))

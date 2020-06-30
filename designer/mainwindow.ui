@@ -217,65 +217,6 @@
                 <item>
                  <widget class="QLineEdit" name="lineEdit_w"/>
                 </item>
-                <item>
-                 <widget class="QComboBox" name="unitsDDown_w">
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>f</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>p</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>n</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>u</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>-</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>K</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>M</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>G</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>T</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                </layout>
               </item>
               <item>
@@ -295,65 +236,6 @@
                 <item>
                  <widget class="QLineEdit" name="lineEdit_T"/>
                 </item>
-                <item>
-                 <widget class="QComboBox" name="unitsDDown_T">
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>f</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>p</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>n</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>u</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>-</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>K</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>M</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>G</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>T</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                </layout>
               </item>
               <item>
@@ -372,65 +254,6 @@
                 </item>
                 <item>
                  <widget class="QLineEdit" name="lineEdit_psy"/>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="unitsDDown_psy">
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>f</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>p</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>n</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>u</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>-</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>K</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>M</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>G</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>T</string>
-                   </property>
-                  </item>
-                 </widget>
                 </item>
                </layout>
               </item>
@@ -452,65 +275,6 @@
                 </item>
                 <item>
                  <widget class="QLineEdit" name="lineEdit_KG"/>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="unitsDDown_KG">
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>f</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>p</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>n</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>u</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>-</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>K</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>M</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>G</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>T</string>
-                   </property>
-                  </item>
-                 </widget>
                 </item>
                </layout>
               </item>
@@ -577,65 +341,6 @@
                 <item>
                  <widget class="QLineEdit" name="lineEdit_A"/>
                 </item>
-                <item>
-                 <widget class="QComboBox" name="unitsDDown_A">
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>f</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>p</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>n</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>u</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>-</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>K</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>M</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>G</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>T</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                </layout>
               </item>
               <item>
@@ -655,65 +360,6 @@
                 <item>
                  <widget class="QLineEdit" name="lineEdit_f"/>
                 </item>
-                <item>
-                 <widget class="QComboBox" name="unitsDDown_f">
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>f</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>p</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>n</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>u</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>-</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>K</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>M</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>G</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>T</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                </layout>
               </item>
              </layout>
@@ -731,35 +377,55 @@
           <property name="title">
            <string>Ploteo</string>
           </property>
-          <widget class="QComboBox" name="plotType">
+          <widget class="QWidget" name="verticalLayoutWidget">
            <property name="geometry">
             <rect>
-             <x>60</x>
-             <y>70</y>
-             <width>151</width>
-             <height>22</height>
+             <x>40</x>
+             <y>40</y>
+             <width>211</width>
+             <height>111</height>
             </rect>
            </property>
-           <item>
-            <property name="text">
-             <string>Elija Tipo de Gráfico...</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Salida</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Bode</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Polos/Ceros</string>
-            </property>
-           </item>
+           <layout class="QVBoxLayout" name="verticalLayout_plot">
+            <item>
+             <widget class="QComboBox" name="plotType">
+              <item>
+               <property name="text">
+                <string>Elija Tipo de Gráfico...</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Salida</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Bode</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Polos/Ceros</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="ampOrFase">
+              <item>
+               <property name="text">
+                <string>Amplitud</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Fase</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
