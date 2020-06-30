@@ -338,8 +338,14 @@ class myWidget (QMainWindow, Ui_MainWindow):
                            self.data["A"], self.data["f"])
 
         elif self.data["plotType"] == "Bode":
-            bck.plotBode(self, bck.filterHandler(self.data["filterType"], self.data["filterOrder"], self.data["K"],
+            if self.data["ampOrFase"] == "Amplitud":
+                bck.plotBodeMag(self, bck.filterHandler(self.data["filterType"], self.data["filterOrder"], self.data["K"],
                                                    self.data["w"], self.data["T"], self.data["psy"]))
+            elif self.data["ampOrFase"] == "Fase":
+                bck.plotBodePhase(self,
+                                bck.filterHandler(self.data["filterType"], self.data["filterOrder"], self.data["K"],
+                                                  self.data["w"], self.data["T"], self.data["psy"]))
+
 
         elif self.data["plotType"] == "Polos/Ceros":
             bck.plotZerosPoles(self, bck.filterHandler(self.data["filterType"], self.data["filterOrder"], self.data["K"],
