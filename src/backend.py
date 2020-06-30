@@ -56,10 +56,12 @@ def setgrids(self_axes):
 #   Entrada: 'Senoide' o 'Pulso'
 #   t:intervalo de tiempo
 #Devuelve la respuesta de salida
-def respuesta(filtro,entrada,A, f, t):
+def respuesta(filtro,entrada,A, f):
     if entrada == 'Senoide':
+        t=np.linspace(0,(5/f),num=1000)
         return signal.lsim(filtro,U=A*sin(np.pi*f*t),T=t)
     elif entrada == 'Pulso':
+        t = np.linspace(0, 0.2, num=1000)
         return signal.lsim(filtro,U=[A for i in t],T=t)
 
 #Plot de los ceros y polos de la funcion de transferencia.
@@ -110,11 +112,11 @@ def plotBode(self,sys):
 #   inputtype: 'sin' o 'pulso'
 #   t:intervalo de tiempo
 #Devuelve la respuesta de salida
-def plotOutput(self,sys,inputtype,A,f,t):
+def plotOutput(self,sys,inputtype,A,f):
     self.figure.delaxes(self.axes)
     self.axes = self.figure.add_subplot(1, 1, 1)
     #self.axes.clear()
-    output=respuesta(sys,inputtype,A,f,t)
+    output=respuesta(sys,inputtype,A,f)
     self.axes.plot(output[0],output[1])
     self.axes.set_xlabel('Tiempo (s)')
     self.axes.set_ylabel('Amplitud')
