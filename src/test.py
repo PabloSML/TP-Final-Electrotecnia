@@ -10,8 +10,9 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 # # Python Module       BORRAR SI NO SE USA
-# import numpy as np
+import numpy as np
 # from scipy import signal
+
 
 class myWidget (QMainWindow, Ui_MainWindow):
 
@@ -22,6 +23,21 @@ class myWidget (QMainWindow, Ui_MainWindow):
         #Initial setup
         self.setupUi(self)
         self.setWindowTitle("SIMBA")
+        self.simButton.setCheckable(True)
+
+        self.data = {
+            "filterOrder": 0,
+            "filterType": "",
+            "inputType": "",
+            "plotType": "",
+            "T": 0,
+            "w": 0,
+            "psy": 0,
+            "K": 0,
+            "G": 0,
+            "A": 0,
+            "f": 0
+        }
 
         #Hide assets for first use
         self.hide_order_one()
@@ -50,10 +66,21 @@ class myWidget (QMainWindow, Ui_MainWindow):
         # # Adds axes to figure.
         self.axes = self.figure.add_subplot()
 
-        #Connections to callbacks
+        # Connections to callbacks
+        # New filter order chosen
         self.filterOrder.currentIndexChanged.connect(self.order_change)
+        # New input type chosen
         self.inputType.currentIndexChanged.connect(self.input_change)
-        self.simButton.pressed.connect(self.testBackend)
+        # Intro pressed on data field
+        self.lineEdit_T.returnPressed.connect(self.collectData)
+        self.lineEdit_w.returnPressed.connect(self.collectData)
+        self.lineEdit_psy.returnPressed.connect(self.collectData)
+        self.lineEdit_K.returnPressed.connect(self.collectData)
+        self.lineEdit_G.returnPressed.connect(self.collectData)
+        self.lineEdit_A.returnPressed.connect(self.collectData)
+        self.lineEdit_f.returnPressed.connect(self.collectData)
+        # Simulate button pressed
+        self.simButton.toggled.connect(self.simButtonPressed)
 
     #METODOS DE UI VISUALES
 
@@ -200,6 +227,33 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
     #METODOS DE UI LOGICOS
 
-    def testBackend(self):
-        bck.plotZerosPoles(self, bck.pasabajos(1,1,1))
+    def simButtonPressed(self):
 
+        if self.simButton.isChecked():
+            bck.plotZerosPoles(self, bck.pasabajos(1,1,1))
+
+        elif self.simButton.isChecked() is False:
+            print("heyu")
+            self.axes.clear()
+            self.canvas.draw()
+
+
+    def collectData(self):
+
+        self.data["filterOrder"] = self.filterOrder.currentText()
+        if self.data["filterOrder"] == "Primer Orden":
+            self.data["filterType"] = self.filterType.currentText()
+            self.data["T"] = np.float(self.lineEdit_T.text())
+        else:
+            self.data["filterType"] = self.filterType2.currentText()
+            self.data["w"] = np.float(self.lineEdit_w.text())
+            self.data["psy"] = np.float(self.lineEdit_psy.text())
+        self.data["inputType"] = self.inputType.currentText()
+        self.data["plotType"] = self.plotType.currentText()
+        self.data["K"] = np.float(self.lineEdit_K.text())
+        self.data["G"] = np.float(self.lineEdit_G.text())
+        self.data["A"] = np.float(self.lineEdit_A.text())
+        self.data["f"] = np.float(self.lineEdit_f.text())
+
+        for value in self.data:
+            print(value)
