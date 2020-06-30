@@ -229,7 +229,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
         if self.simButton.isChecked():
             self.collectData()
             if self.dataIsValid():
-                print("Yeah boi")
+                print("Yeah boii")
             else:
                 print("Nah boi")
 
