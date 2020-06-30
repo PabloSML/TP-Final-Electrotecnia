@@ -227,7 +227,10 @@ class myWidget (QMainWindow, Ui_MainWindow):
     def simButtonPressed(self):
 
         if self.simButton.isChecked():
-            bck.plotZerosPoles(self, bck.pasabajos(1,1,1))
+            bck.plotZerosPoles(self, bck.pasabajos(1,1,1,1,1))
+            # self.collectData(self)
+            # print("aca")
+            # self.plotGraph(self)
 
         elif self.simButton.isChecked() is False:
             print("heyu")
@@ -260,16 +263,16 @@ class myWidget (QMainWindow, Ui_MainWindow):
         for key in self.data:
             print(self.data[key])
 
-    def PlotGraph(self):
+    def plotGraph(self):
         if self.data["plotType"] == "Salida":
             bck.plotOutput(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
-                                                   self.data["w"], self.data["psy"]), self.data["inputType"],
+                                                   self.data["w"],self.data["T"], self.data["psy"]), self.data["inputType"],
                            self.data["A"], self.data["f"], self.data["t"])
 
         elif self.data["plotType"] == "Bode":
             bck.plotBode(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
-                                                   self.data["w"], self.data["psy"]))
+                                                   self.data["w"],self.data["T"], self.data["psy"]))
 
         elif self.data["plotType"] == "Polos/Ceros":
             bck.plotZerosPoles(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
-                                                   self.data["w"], self.data["psy"]))
+                                                   self.data["w"],self.data["T"], self.data["psy"]))

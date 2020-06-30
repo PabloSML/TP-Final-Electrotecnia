@@ -5,34 +5,34 @@ from numpy import cos, sin
 
 # #Filtro pasa bajos
 # Orden 1:
-#   H(s)=k/((s/wo)+1)
+#   H(s)=k/((s/T)+1)
 # Orden 2:
 #   H(s)=k/((s/wo)^2+2*(s/wo)*e+1)
-def pasabajos(orden,k,wo,e=0):
+def pasabajos(orden,k,wo,T,e):
     if orden == 1:
-        return signal.TransferFunction([k], [1/wo, 1])
+        return signal.TransferFunction([k], [1/T, 1])
     elif orden == 2:
         return signal.TransferFunction([k], [(1/wo)**2, 2*e/wo, 1])
 
 # #Filtro pasa altos
 # Orden 1:
-#   H(s)=k*s/((s/wo)+1)
+#   H(s)=k*s/((s/T)+1)
 # Orden 2:
 #   H(s)=k*s^2/((s/wo)^2+2*(s/wo)*e+1)
-def pasaaltos(orden,k,wo,e=0):
+def pasaaltos(orden,k,wo,T,e):
     if orden == 1:
-        return signal.TransferFunction([k,0], [1/wo, 1])
+        return signal.TransferFunction([k,0], [1/T, 1])
     elif orden == 2:
         return signal.TransferFunction([k,0,0], [(1/wo)**2, 2*e/wo, 1])
 
 # #Filtro pasa todo
 # Orden 1:
-#   H(s)=k((s/wo)-1)/((s/wo)+1)
+#   H(s)=k((s/T)-1)/((s/T)+1)
 # Orden 2:
 #   H(s)=k((s/wo)^2-2*(s/wo)*e+1)/((s/wo)^2+2*(s/wo)*e+1)
-def pasatodo(orden,k,wo,e=0):
+def pasatodo(orden,k,wo,T,e):
     if orden == 1:
-        return signal.TransferFunction([k/wo,-k], [1/wo, 1])
+        return signal.TransferFunction([k/T,-k], [1/T, 1])
     elif orden == 2:
         return signal.TransferFunction([k/(wo**2),-2*k*e/wo,k], [(1/wo)**2, 2*e/wo, 1])
 
@@ -133,13 +133,13 @@ def G2K(G,orden,filtertype,w,e):
         return G*2*e/w
 
 #Devuelve la funcion de transferencia dependiendo del filtro
-def filterHandler(filtro,orden,k,w,e=0):
+def filterHandler(filtro,orden,k,w,T,e):
     if filtro == "Pasa Bajos":
-        return pasabajos(orden,k,w,e)
+        return pasabajos(orden,k,w,T,e)
     elif filtro == "Pasa Altos":
-        return pasaaltos(orden,k,w,e)
+        return pasaaltos(orden,k,w,T,e)
     elif filtro == "Pasa Todo":
-        return pasatodo(orden,k,w,e)
+        return pasatodo(orden,k,w,T,e)
     elif filtro == "Pasa Banda":
         return pasabanda(k,w,e)
     elif filtro == "Notch":
