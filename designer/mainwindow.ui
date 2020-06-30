@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1404</width>
-    <height>1046</height>
+    <height>971</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -106,7 +106,7 @@
             <rect>
              <x>10</x>
              <y>20</y>
-             <width>281</width>
+             <width>284</width>
              <height>153</height>
             </rect>
            </property>
@@ -437,57 +437,7 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_K">
                 <item>
-                 <widget class="QLabel" name="label_K">
-                  <property name="font">
-                   <font>
-                    <pointsize>14</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>K</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_K"/>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="unitsDDown_K">
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>f</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>p</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>n</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>u</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>m</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>-</string>
-                   </property>
-                  </item>
+                 <widget class="QComboBox" name="comboBox_KG">
                   <item>
                    <property name="text">
                     <string>K</string>
@@ -495,42 +445,16 @@
                   </item>
                   <item>
                    <property name="text">
-                    <string>M</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
                     <string>G</string>
                    </property>
                   </item>
-                  <item>
-                   <property name="text">
-                    <string>T</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_G">
-                <item>
-                 <widget class="QLabel" name="label_G">
-                  <property name="font">
-                   <font>
-                    <pointsize>14</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>G</string>
-                  </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_G"/>
+                 <widget class="QLineEdit" name="lineEdit_KG"/>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="unitsDDown_G">
+                 <widget class="QComboBox" name="unitsDDown_KG">
                   <item>
                    <property name="text">
                     <string/>

@@ -26,17 +26,17 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.simButton.setCheckable(True)
 
         self.data = {
-            "filterOrder": 0,
-            "filterType": "",
-            "inputType": "",
-            "plotType": "",
-            "T": 0,
-            "w": 0,
-            "psy": 0,
-            "K": 0,
-            "G": 0,
-            "A": 0,
-            "f": 0
+            "filterOrder": None,
+            "filterType": None,
+            "inputType": None,
+            "plotType": None,
+            "T": None,
+            "w": None,
+            "psy": None,
+            "K": None,
+            "G": None,
+            "A": None,
+            "f": None
         }
 
         #Hide assets for first use
@@ -69,14 +69,15 @@ class myWidget (QMainWindow, Ui_MainWindow):
         # Connections to callbacks
         # New filter order chosen
         self.filterOrder.currentIndexChanged.connect(self.order_change)
+        # Switched between K and G
+        self.comboBox_KG.currentIndexChanged.connect(self.kgChange)
         # New input type chosen
         self.inputType.currentIndexChanged.connect(self.input_change)
         # Intro pressed on data field
         self.lineEdit_T.returnPressed.connect(self.collectData)
         self.lineEdit_w.returnPressed.connect(self.collectData)
         self.lineEdit_psy.returnPressed.connect(self.collectData)
-        self.lineEdit_K.returnPressed.connect(self.collectData)
-        self.lineEdit_G.returnPressed.connect(self.collectData)
+        self.lineEdit_KG.returnPressed.connect(self.collectData)
         self.lineEdit_A.returnPressed.connect(self.collectData)
         self.lineEdit_f.returnPressed.connect(self.collectData)
         # Simulate button pressed
@@ -92,16 +93,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_T.hide()
         self.unitsDDown_T.setCurrentIndex(0)
         self.unitsDDown_T.hide()
-        self.label_K.hide()
-        self.lineEdit_K.clear()
-        self.lineEdit_K.hide()
-        self.unitsDDown_K.setCurrentIndex(0)
-        self.unitsDDown_K.hide()
-        self.label_G.hide()
-        self.lineEdit_G.clear()
-        self.lineEdit_G.hide()
-        self.unitsDDown_G.setCurrentIndex(0)
-        self.unitsDDown_G.hide()
+        self.comboBox_KG.setCurrentIndex(0)
+        self.comboBox_KG.hide()
+        self.lineEdit_KG.clear()
+        self.lineEdit_KG.hide()
+        self.unitsDDown_KG.setCurrentIndex(0)
+        self.unitsDDown_KG.hide()
 
         if self.simButton.isChecked():
             self.simButton.toggle()
@@ -111,12 +108,9 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.label_T.show()
         self.lineEdit_T.show()
         self.unitsDDown_T.show()
-        self.label_K.show()
-        self.lineEdit_K.show()
-        self.unitsDDown_K.show()
-        self.label_G.show()
-        self.lineEdit_G.show()
-        self.unitsDDown_G.show()
+        self.comboBox_KG.show()
+        self.lineEdit_KG.show()
+        self.unitsDDown_KG.show()
 
     def hide_order_two(self):
         self.filterType2.setCurrentIndex(0)
@@ -131,16 +125,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.unitsDDown_w.hide()
         self.unitsDDown_psy.setCurrentIndex(0)
         self.unitsDDown_psy.hide()
-        self.label_K.hide()
-        self.lineEdit_K.clear()
-        self.lineEdit_K.hide()
-        self.unitsDDown_K.setCurrentIndex(0)
-        self.unitsDDown_K.hide()
-        self.label_G.hide()
-        self.lineEdit_G.clear()
-        self.lineEdit_G.hide()
-        self.unitsDDown_G.setCurrentIndex(0)
-        self.unitsDDown_G.hide()
+        self.comboBox_KG.setCurrentIndex(0)
+        self.comboBox_KG.hide()
+        self.lineEdit_KG.clear()
+        self.lineEdit_KG.hide()
+        self.unitsDDown_KG.setCurrentIndex(0)
+        self.unitsDDown_KG.hide()
 
         if self.simButton.isChecked():
             self.simButton.toggle()
@@ -153,12 +143,9 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_psy.show()
         self.unitsDDown_w.show()
         self.unitsDDown_psy.show()
-        self.label_K.show()
-        self.lineEdit_K.show()
-        self.unitsDDown_K.show()
-        self.label_G.show()
-        self.lineEdit_G.show()
-        self.unitsDDown_G.show()
+        self.comboBox_KG.show()
+        self.lineEdit_KG.show()
+        self.unitsDDown_KG.show()
 
     def order_change(self):
         if self.filterOrder.currentIndex() == 1:
@@ -172,6 +159,17 @@ class myWidget (QMainWindow, Ui_MainWindow):
         else:
             self.hide_order_one()
             self.hide_order_two()
+
+    def kgChange(self):
+        self.lineEdit_KG.clear()
+        if self.comboBox_KG.currentText() == "K":
+            self.data["G"] = None
+        else:
+            self.data["K"] = None
+
+        if self.simButton.isChecked():
+            self.simButton.setChecked(False)
+
 
     def hide_pulse_input(self):
         self.label_A.hide()
@@ -250,10 +248,13 @@ class myWidget (QMainWindow, Ui_MainWindow):
             self.data["psy"] = np.float(self.lineEdit_psy.text())
         self.data["inputType"] = self.inputType.currentText()
         self.data["plotType"] = self.plotType.currentText()
-        self.data["K"] = np.float(self.lineEdit_K.text())
-        self.data["G"] = np.float(self.lineEdit_G.text())
+        if self.comboBox_KG.currentText() == "K":
+            self.data["K"] = np.float(self.lineEdit_KG.text())
+        else:
+            self.data["G"] = np.float(self.lineEdit_KG.text())
         self.data["A"] = np.float(self.lineEdit_A.text())
-        self.data["f"] = np.float(self.lineEdit_f.text())
+        if self.inputType.currentText() == "Senoide":
+            self.data["f"] = np.float(self.lineEdit_f.text())
 
-        for value in self.data:
-            print(value)
+        for key in self.data:
+            print(self.data[key])
