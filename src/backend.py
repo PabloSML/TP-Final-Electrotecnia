@@ -131,11 +131,14 @@ def plotOutput(self,sys,inputtype,A,f):
 #Conversion de G a K segun orden y tipo de filtro
 #   orden: 1,2
 #   filtertype: "Pasa Bajos","Pasa Altos", "Pasa Todo", "Pasa Banda", "Notch"
-def G2K(G,orden,filtertype,w,e):
+def G2K(G,orden,filtertype,w,T,e):
     if filtertype=='Pasa Bajos' or filtertype=='Pasa Todo' or filtertype=='Notch' :
         return G
     if filtertype=='Pasa Altos':
-        return G*(1/w)**orden
+        if orden ==1:
+            return G*(1/T)
+        elif orden ==2:
+            return G*(1/w)**2
     if filtertype=='Pasa Banda':
         return G*2*e/w
 

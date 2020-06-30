@@ -290,7 +290,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
                 elif self.comboBox_KG.currentText() == "G":
                     g = np.float(self.lineEdit_KG.text())
                     self.data["K"] = bck.G2K(g, self.data["filterOrder"],
-                                             self.data["filterType"], self.data["w"], self.data["psy"])
+                                             self.data["filterType"], self.data["w"],self.data["T"], self.data["psy"])
             else:
                 allGHomie = False
             if self.lineEdit_A.text() != "":
