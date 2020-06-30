@@ -59,9 +59,9 @@ def setgrids(self_axes):
 def respuesta(filtro,entrada,A, f):
     if entrada == 'Senoide':
         t=np.linspace(0,(5/f),num=1000)
-        return signal.lsim(filtro,U=A*sin(np.pi*f*t),T=t)
+        return signal.lsim(filtro,U=A*sin(2*np.pi*f*t),T=t)
     elif entrada == 'Pulso':
-        t = np.linspace(0, 0.2, num=1000)
+        t = np.linspace(0, 10, num=1000)
         return signal.lsim(filtro,U=[A for i in t],T=t)
 
 #Plot de los ceros y polos de la funcion de transferencia.
