@@ -76,6 +76,8 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.inputType.currentIndexChanged.connect(self.inputChange)
         # New plot type chosen
         self.plotType.currentIndexChanged.connect(self.plotChange)
+        # Switch between Amp or Phase
+        self.ampOrFase.currentIndexChanged.connect(self.switchBodePlot)
         # Intro pressed on data field
         self.lineEdit_T.returnPressed.connect(self.dataInput)
         self.lineEdit_w.returnPressed.connect(self.dataInput)
@@ -210,6 +212,10 @@ class myWidget (QMainWindow, Ui_MainWindow):
             self.ampOrFase.show()
         else:
             self.ampOrFase.hide()
+
+    def switchBodePlot(self):
+
+        self.activateAwesomeness()
 
     def simButtonPressed(self):
 
