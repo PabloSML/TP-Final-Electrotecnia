@@ -34,7 +34,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
             "w": None,
             "psy": None,
             "K": None,
-            "G": None,
             "A": None,
             "f": None
         }
@@ -147,30 +146,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_KG.show()
         self.unitsDDown_KG.show()
 
-    def order_change(self):
-        if self.filterOrder.currentIndex() == 1:
-            self.hide_order_two()
-            self.show_order_one()
-
-        elif self.filterOrder.currentIndex() == 2:
-            self.hide_order_one()
-            self.show_order_two()
-
-        else:
-            self.hide_order_one()
-            self.hide_order_two()
-
-    def kgChange(self):
-        self.lineEdit_KG.clear()
-        if self.comboBox_KG.currentText() == "K":
-            self.data["G"] = None
-        else:
-            self.data["K"] = None
-
-        if self.simButton.isChecked():
-            self.simButton.setChecked(False)
-
-
     def hide_pulse_input(self):
         self.label_A.hide()
         self.lineEdit_A.clear()
@@ -209,6 +184,32 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.unitsDDown_A.show()
         self.unitsDDown_f.show()
 
+
+    #METODOS DE UI LOGICOS
+
+    def order_change(self):
+
+        if self.filterOrder.currentIndex() == 1:
+            self.hide_order_two()
+            self.show_order_one()
+            self.data["w"] = None
+            self.data["psy"] = None
+
+        elif self.filterOrder.currentIndex() == 2:
+            self.hide_order_one()
+            self.show_order_two()
+
+        else:
+            self.hide_order_one()
+            self.hide_order_two()
+
+    def kgChange(self):
+        self.lineEdit_KG.clear()
+        self.data["K"] = None
+
+        if self.simButton.isChecked():
+            self.simButton.setChecked(False)
+
     def input_change(self):
 
         if self.inputType.currentIndex() == 1:
@@ -223,8 +224,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
             self.hide_pulse_input()
             self.hide_sin_input()
 
-    #METODOS DE UI LOGICOS
-
     def simButtonPressed(self):
 
         if self.simButton.isChecked():
@@ -238,8 +237,8 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
     def collectData(self):
 
-        self.data["filterOrder"] = self.filterOrder.currentText()
-        if self.data["filterOrder"] == "Primer Orden":
+        self.data["filterOrder"] = self.filterOrder.currentIndex()
+        if self.data["filterOrder"] == 1:
             self.data["filterType"] = self.filterType.currentText()
             self.data["T"] = np.float(self.lineEdit_T.text())
         else:
@@ -251,7 +250,9 @@ class myWidget (QMainWindow, Ui_MainWindow):
         if self.comboBox_KG.currentText() == "K":
             self.data["K"] = np.float(self.lineEdit_KG.text())
         else:
-            self.data["G"] = np.float(self.lineEdit_KG.text())
+            g = np.float(self.lineEdit_KG.text())
+            self.data["K"] = bck.G2K(g, self.data["filterOrder"],
+                                     self.data["filterType"], self.data["w"], self.data["psy"])
         self.data["A"] = np.float(self.lineEdit_A.text())
         if self.inputType.currentText() == "Senoide":
             self.data["f"] = np.float(self.lineEdit_f.text())
