@@ -269,10 +269,11 @@ class myWidget (QMainWindow, Ui_MainWindow):
                     allGHomie = False
             if self.inputType.currentIndex() != 0:
                 self.data["inputType"] = self.inputType.currentText()
-                if self.inputType.currentText() == "Senoide" and self.lineEdit_f.text() != "":
-                    self.data["f"] = np.float(self.lineEdit_f.text())
-                else:
-                    allGHomie = False
+                if self.inputType.currentText() == "Senoide":
+                    if self.lineEdit_f.text() != "":
+                        self.data["f"] = np.float(self.lineEdit_f.text())
+                    else:
+                        allGHomie = False
             else:
                 allGHomie = False
             if self.plotType.currentIndex() != 0:
@@ -306,31 +307,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
             self.dumpData()
 
         return allGHomie
-
-    # def dataIsValid(self):
-    #
-    #     if self.data["filterType"] == None:
-    #         return False
-    #     if self.data["plotType"] == None:
-    #         return False
-    #     if self.data["K"] == None:
-    #         return False
-    #     if self.data["A"] == None:
-    #         return False
-    #     if self.data["inputType"] == None:
-    #         return False
-    #     elif self.data["inputType"] == "Senoide" and self.data["f"] == None:
-    #         return False
-    #     if self.data["filterOrder"] == 1:
-    #         if self.data["T"] == None:
-    #             return False
-    #     elif self.data["filterOrder"] == 2:
-    #         if self.data["w"] == None or self.data["psy"] == None:
-    #             return False
-    #     else:
-    #         return False
-
-        return True
 
     def dumpData(self):
 
