@@ -183,4 +183,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
     def testBackend(self):
         bck.plotZerosPoles(self, bck.pasabajos(1,1,1))
+        #bck.plotBode(self,bck.pasabajos(1,1,1))
+        #bck.plotOutput(self,bck.pasabajos(1,1,1),'sin',1,1,np.linspace(0,20,100))
 
