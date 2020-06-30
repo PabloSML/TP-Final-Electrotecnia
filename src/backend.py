@@ -121,3 +121,12 @@ def plotOutput(self,sys,inputtype,A,w,t):
     self.axes.set_ylabel('Amplitud')
     setgrids(self.axes)
     self.canvas.draw()
+
+
+def G2K(G,orden,filtertype,w,e):
+    if filtertype=='pasabajos' or filtertype=='pasatodo' or filtertype=='notch' :
+        return G
+    if filtertype=='pasaaltos':
+        return G*(1/w)**orden
+    if filtertype=='pasabanda':
+        return G*2*e/w
