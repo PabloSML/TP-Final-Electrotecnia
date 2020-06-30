@@ -227,7 +227,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
     def simButtonPressed(self):
 
         if self.simButton.isChecked():
-            bck.plotZerosPoles(self, bck.pasabajos(1,1,1))
+            self.collectData()
+            if self.dataIsValid():
+                print("Yeah boi")
+            else:
+                print("Nah boi")
+
 
         elif self.simButton.isChecked() is False:
             print("heyu")
@@ -237,34 +242,71 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
     def collectData(self):
 
-        self.data["filterOrder"] = self.filterOrder.currentIndex()
-        if self.data["filterOrder"] == 1:
-            self.data["filterType"] = self.filterType.currentText()
-            self.data["T"] = np.float(self.lineEdit_T.text())
-        else:
-            self.data["filterType"] = self.filterType2.currentText()
-            self.data["w"] = np.float(self.lineEdit_w.text())
-            self.data["psy"] = np.float(self.lineEdit_psy.text())
-        self.data["inputType"] = self.inputType.currentText()
-        self.data["plotType"] = self.plotType.currentText()
-        if self.comboBox_KG.currentText() == "K":
-            self.data["K"] = np.float(self.lineEdit_KG.text())
-        else:
-            g = np.float(self.lineEdit_KG.text())
-            self.data["K"] = bck.G2K(g, self.data["filterOrder"],
-                                     self.data["filterType"], self.data["w"], self.data["psy"])
-        self.data["A"] = np.float(self.lineEdit_A.text())
-        if self.inputType.currentText() == "Senoide":
-            self.data["f"] = np.float(self.lineEdit_f.text())
+        if self.filterOrder.currentIndex() != 0:
+            self.data["filterOrder"] = self.filterOrder.currentIndex()
+
+            if self.data["filterOrder"] == 1:
+                if self.filterType.currentIndex() != 0:
+                    self.data["filterType"] = self.filterType.currentText()
+                if self.lineEdit_T.text() != "":
+                    self.data["T"] = np.float(self.lineEdit_T.text())
+            elif self.data["filterOrder"] == 2:
+                if self.filterType2.currentIndex() != 0:
+                    self.data["filterType"] = self.filterType2.currentText()
+                if self.lineEdit_w.text() != "":
+                    self.data["w"] = np.float(self.lineEdit_w.text())
+                if self.lineEdit_psy.text() != "":
+                    self.data["psy"] = np.float(self.lineEdit_psy.text())
+            if self.inputType.currentIndex() != 0:
+                self.data["inputType"] = self.inputType.currentText()
+                if self.inputType.currentText() == "Senoide" and self.lineEdit_f.text() != "":
+                    self.data["f"] = np.float(self.lineEdit_f.text())
+            if self.plotType.currentIndex() != 0:
+                self.data["plotType"] = self.plotType.currentText()
+            if self.lineEdit_KG.text() != "":
+                if self.comboBox_KG.currentText() == "K":
+                    self.data["K"] = np.float(self.lineEdit_KG.text())
+                elif self.comboBox_KG.currentText() == "G":
+                    g = np.float(self.lineEdit_KG.text())
+                    self.data["K"] = bck.G2K(g, self.data["filterOrder"],
+                                             self.data["filterType"], self.data["w"], self.data["psy"])
+            if self.lineEdit_A.text() != "":
+                self.data["A"] = np.float(self.lineEdit_A.text())
 
         for key in self.data:
             print(self.data[key])
+
+    def dataIsValid(self):
+
+        if self.data["filterType"] == None:
+            return False
+        if self.data["plotType"] == None:
+            return False
+        if self.data["K"] == None:
+            return False
+        if self.data["A"] == None:
+            return False
+        if self.data["inputType"] == None:
+            return False
+        elif self.data["inputType"] == "Senoide" and self.data["f"] == None:
+            return False
+        if self.data["filterOrder"] == 1:
+            if self.data["T"] == None:
+                return False
+        elif self.data["filterOrder"] == 2:
+            if self.data["w"] == None or self.data["psy"] == None:
+                return False
+        else:
+            return False
+
+        return True
+
 
     def PlotGraph(self):
         if self.data["plotType"] == "Salida":
             bck.plotOutput(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
                                                    self.data["w"], self.data["psy"]), self.data["inputType"],
-                           self.data["A"], self.data["f"], self.data["t"])
+                           self.data["A"], self.data["f"], self.data["T"])
 
         elif self.data["plotType"] == "Bode":
             bck.plotBode(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
