@@ -73,12 +73,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
         # New input type chosen
         self.inputType.currentIndexChanged.connect(self.input_change)
         # Intro pressed on data field
-        self.lineEdit_T.returnPressed.connect(self.collectData)
-        self.lineEdit_w.returnPressed.connect(self.collectData)
-        self.lineEdit_psy.returnPressed.connect(self.collectData)
-        self.lineEdit_KG.returnPressed.connect(self.collectData)
-        self.lineEdit_A.returnPressed.connect(self.collectData)
-        self.lineEdit_f.returnPressed.connect(self.collectData)
+        self.lineEdit_T.returnPressed.connect(self.dataInput)
+        self.lineEdit_w.returnPressed.connect(self.dataInput)
+        self.lineEdit_psy.returnPressed.connect(self.dataInput)
+        self.lineEdit_KG.returnPressed.connect(self.dataInput)
+        self.lineEdit_A.returnPressed.connect(self.dataInput)
+        self.lineEdit_f.returnPressed.connect(self.dataInput)
         # Simulate button pressed
         self.simButton.toggled.connect(self.simButtonPressed)
 
@@ -226,19 +226,23 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
     def simButtonPressed(self):
 
-        if self.simButton.isChecked():
-            self.collectData()
-            if self.dataIsValid():
-                print("Yeah boii")
-            else:
-                print("Nah boi")
+        self.activateAwesomeness()
 
-
-        elif self.simButton.isChecked() is False:
-            print("heyu")
+        if self.simButton.isChecked() is False:
             self.axes.clear()
             self.canvas.draw()
 
+    def dataInput(self):
+
+        self.activateAwesomeness()
+
+    def activateAwesomeness(self):
+        if self.simButton.isChecked():
+            self.collectData()
+            if self.dataIsValid():
+                self.plotGraph()
+            else:
+                print("Missing data")
 
     def collectData(self):
 
@@ -302,7 +306,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
         return True
 
 
-    def PlotGraph(self):
+    def plotGraph(self):
         if self.data["plotType"] == "Salida":
             bck.plotOutput(self, bck.filterHandler(self.data["plotType"], self.data["filterOrder"], self.data["K"],
                                                    self.data["w"], self.data["psy"]), self.data["inputType"],
