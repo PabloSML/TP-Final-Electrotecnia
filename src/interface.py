@@ -36,7 +36,8 @@ class myWidget (QMainWindow, Ui_MainWindow):
             "psy": None,
             "K": None,
             "A": None,
-            "f": None
+            "f": None,
+            "focused": None
         }
 
         # Hide assets for first use
@@ -45,7 +46,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.hide_pulse_input()
         self.hide_sin_input()
         self.ampOrFase.hide()
-        self.frame_sliders.hide()
+        self.hideSliders()
 
         # Creates figure and canvas.
         self.figure = Figure()
@@ -80,6 +81,20 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.plotType.currentIndexChanged.connect(self.plotChange)
         # Switch between Amp or Phase
         self.ampOrFase.currentIndexChanged.connect(self.switchBodePlot)
+        # Data field selected
+        self.lineEdit_T.textEdited.connect(self.sliderAssignment)
+        self.lineEdit_w.textEdited.connect(self.sliderAssignment)
+        self.lineEdit_psy.textEdited.connect(self.sliderAssignment)
+        self.lineEdit_KG.textEdited.connect(self.sliderAssignment)
+        self.lineEdit_A.textEdited.connect(self.sliderAssignment)
+        self.lineEdit_f.textEdited.connect(self.sliderAssignment)
+        # Slider changed value
+        self.horizontalSlider_T.sliderMoved.connect(self.sliderValueChanged)
+        self.horizontalSlider_w.sliderMoved.connect(self.sliderValueChanged)
+        self.horizontalSlider_psy.sliderMoved.connect(self.sliderValueChanged)
+        self.horizontalSlider_KG.sliderMoved.connect(self.sliderValueChanged)
+        self.horizontalSlider_A.sliderMoved.connect(self.sliderValueChanged)
+        self.horizontalSlider_f.sliderMoved.connect(self.sliderValueChanged)
         # Intro pressed on data field
         self.lineEdit_T.returnPressed.connect(self.dataInput)
         self.lineEdit_w.returnPressed.connect(self.dataInput)
@@ -169,6 +184,71 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_A.show()
         self.lineEdit_f.show()
 
+    def sliderAssignment(self):
+        self.hideSliders()
+
+        if self.lineEdit_T.hasFocus():
+            self.data["focused"] = "T"
+            text = self.lineEdit_T.text()
+            if text != "" and text[-1] != "e":
+                num = np.float(text)
+                self.horizontalSlider_T.show()
+                self.horizontalSlider_T.setMinimum(num / 10)
+                self.horizontalSlider_T.setMaximum(num * 10)
+                self.horizontalSlider_T.setValue(num)
+        elif self.lineEdit_w.hasFocus():
+            self.data["focused"] = "w"
+            text = self.lineEdit_w.text()
+            if text != "" and text[-1] != "e":
+                num = np.float(text)
+                self.horizontalSlider_w.show()
+                self.horizontalSlider_w.setMinimum(num / 10)
+                self.horizontalSlider_w.setMaximum(num * 10)
+                self.horizontalSlider_w.setValue(num)
+        elif self.lineEdit_psy.hasFocus():
+            self.data["focused"] = "psy"
+            text = self.lineEdit_psy.text()
+            if text != "" and text[-1] != "e":
+                num = np.float(text)
+                self.horizontalSlider_psy.show()
+                self.horizontalSlider_psy.setMinimum(num / 10)
+                self.horizontalSlider_psy.setMaximum(num * 10)
+                self.horizontalSlider_psy.setValue(num)
+        elif self.lineEdit_KG.hasFocus():
+            self.data["focused"] = "KG"
+            text = self.lineEdit_KG.text()
+            if text != "" and text[-1] != "e":
+                num = np.float(text)
+                self.horizontalSlider_KG.show()
+                self.horizontalSlider_KG.setMinimum(num / 10)
+                self.horizontalSlider_KG.setMaximum(num * 10)
+                self.horizontalSlider_KG.setValue(num)
+        elif self.lineEdit_A.hasFocus():
+            self.data["focused"] = "A"
+            text = self.lineEdit_A.text()
+            if text != "" and text[-1] != "e":
+                num = np.float(text)
+                self.horizontalSlider_A.show()
+                self.horizontalSlider_A.setMinimum(num / 10)
+                self.horizontalSlider_A.setMaximum(num * 10)
+                self.horizontalSlider_A.setValue(num)
+        elif self.lineEdit_f.hasFocus():
+            self.data["focused"] = "f"
+            text = self.lineEdit_f.text()
+            if text != "" and text[-1] != "e":
+                num = np.float(text)
+                self.horizontalSlider_f.show()
+                self.horizontalSlider_f.setMinimum(num / 10)
+                self.horizontalSlider_f.setMaximum(num * 10)
+                self.horizontalSlider_f.setValue(num)
+
+    def hideSliders(self):
+        self.horizontalSlider_T.hide()
+        self.horizontalSlider_w.hide()
+        self.horizontalSlider_psy.hide()
+        self.horizontalSlider_KG.hide()
+        self.horizontalSlider_A.hide()
+        self.horizontalSlider_f.hide()
 
     # METODOS DE UI LOGICOS
 
@@ -220,6 +300,24 @@ class myWidget (QMainWindow, Ui_MainWindow):
     def switchBodePlot(self):
 
         self.activateAwesomeness()
+
+    # Maneja el evento de cambio de valor de un slider
+    def sliderValueChanged(self):
+        if self.data["focused"] == "T":
+            self.lineEdit_T.setText(str(self.horizontalSlider_T.value()))
+        elif self.data["focused"] == "w":
+            self.lineEdit_w.setText(str(self.horizontalSlider_w.value()))
+        elif self.data["focused"] == "psy":
+            self.lineEdit_psy.setText(str(self.horizontalSlider_psy.value()))
+        elif self.data["focused"] == "KG":
+            self.lineEdit_KG.setText(str(self.horizontalSlider_KG.value()))
+        elif self.data["focused"] == "A":
+            self.lineEdit_A.setText(str(self.horizontalSlider_A.value()))
+        elif self.data["focused"] == "f":
+            self.lineEdit_f.setText(str(self.horizontalSlider_f.value()))
+
+        if self.simButton.isChecked():
+            self.activateAwesomeness()
     # Maneja el evento de apretado del boton de simulacion (toggle)
     def simButtonPressed(self):
 
@@ -230,7 +328,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
             self.canvas.draw()
     # Maneja el evento de ingreso de valores a partir de los lineEdits
     def dataInput(self):
-
         self.activateAwesomeness()
     # Si la simulacion esta activada, recolecta los datos necesarios y plotea en la ventana
     def activateAwesomeness(self):
