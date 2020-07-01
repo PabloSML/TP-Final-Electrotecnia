@@ -56,12 +56,16 @@ def setgrids(self_axes):
 #   Entrada: 'Senoide' o 'Pulso'
 #   t:intervalo de tiempo
 #Devuelve la respuesta de salida
-def respuesta(filtro,entrada,A, f):
+def respuesta(self,filtro,entrada,A, f):
     if entrada == 'Senoide':
         t=np.linspace(0,(500/f),num=100000)
         return signal.lsim(filtro,U=A*sin(2*np.pi*f*t),T=t)
     elif entrada == 'Pulso':
-        t = np.linspace(0, 10000, num=100000)
+        if self.data["filterOrder"] == 1:
+            t = np.linspace(0, (10000/self.data["T"]), num=100000)
+        elif self.data["filterOrder"] ==2:
+            t = np.linspace(0, (10000/self.data["w"]), num=100000)
+        #t = np.linspace(0, 10, num=100000)
         return signal.lsim(filtro,U=[A for i in t],T=t)
 
 #Plot de los ceros y polos de la funcion de transferencia.
@@ -117,15 +121,28 @@ def plotOutput(self,sys,inputtype,A,f):
     # self.figure.delaxes(self.axes)
     # self.axes = self.figure.add_subplot(1, 1, 1)
     self.axes.clear()
-    output=respuesta(sys,inputtype,A,f)
-    self.axes.plot(output[0],output[1])
+    output=respuesta(self,sys,inputtype,A,f)
+    #Plot input
+    if inputtype == 'Senoide':
+        t=np.linspace(0,(500/f),num=100000)
+        self.axes.plot(t,A*sin(2*np.pi*f*t),label="Entrada")
+    elif inputtype == 'Pulso':
+        t = np.linspace(0, 10, num=100000)
+        self.axes.plot(t,[A for i in t],label="Entrada")
+    #Plot output
+    self.axes.plot(output[0],output[1],label= "Salida")
     self.axes.set_xlabel('Tiempo (s)')
     self.axes.set_ylabel('Amplitud')
     if inputtype == "Senoide":
         self.axes.set_xlim(0,(5/f))
     elif inputtype == "Pulso":
-        self.axes.set_xlim(0, 100)
+        if self.data["filterOrder"] ==1:
+            self.axes.set_xlim(0, (100/self.data["T"]))
+        elif self.data["filterOrder"] ==2:
+            self.axes.set_xlim(0, (100/self.data["w"]))
     setgrids(self.axes)
+    self.axes.minorticks_on()
+    self.axes.legend()
     self.canvas.draw()
 
 #Conversion de G a K segun orden y tipo de filtro
