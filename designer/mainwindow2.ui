@@ -502,83 +502,99 @@
     <widget class="QWidget" name="page"/>
     <widget class="QWidget" name="page_2"/>
    </widget>
-   <widget class="QSlider" name="horizontalSlider_T">
+   <widget class="QFrame" name="frame_sliders">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>880</y>
-      <width>631</width>
-      <height>22</height>
+      <x>320</x>
+      <y>870</y>
+      <width>651</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_w">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>880</y>
-      <width>631</width>
-      <height>22</height>
-     </rect>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_psy">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>880</y>
-      <width>631</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_KG">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>880</y>
-      <width>631</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_A">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>880</y>
-      <width>631</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_f">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>880</y>
-      <width>631</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
+    <widget class="QSlider" name="horizontalSlider_f">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>631</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QSlider" name="horizontalSlider_w">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>631</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QSlider" name="horizontalSlider_T">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>631</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QSlider" name="horizontalSlider_A">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>631</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QSlider" name="horizontalSlider_psy">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>631</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QSlider" name="horizontalSlider_KG">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>631</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
