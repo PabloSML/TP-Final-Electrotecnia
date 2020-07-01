@@ -1,6 +1,6 @@
 # Qt Modules
 #from src.ui.mainwindow import Ui_MainWindow
-from src.ui.mainwindow2 import Ui_MainWindow
+from src.ui.mainwindow import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 import src.backend as bck
@@ -45,7 +45,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.hide_pulse_input()
         self.hide_sin_input()
         self.ampOrFase.hide()
-        self.frame_sliders.hide()
 
         # Creates figure and canvas.
         self.figure = Figure()
