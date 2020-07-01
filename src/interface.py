@@ -111,7 +111,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_T.show()
         self.comboBox_KG.show()
         self.lineEdit_KG.show()
-    # Igual a las anteriores pero para orden doss
+    # Igual a las anteriores pero para orden dos
     def hide_order_two(self):
         self.filterType2.setCurrentIndex(0)
         self.filterType2.hide()
