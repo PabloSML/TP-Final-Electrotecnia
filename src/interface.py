@@ -302,9 +302,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
         else:
             allGHomie = False
 
-        for key in self.data:
-            print(self.data[key])
-
         if allGHomie == False:
             self.dumpData()
 
