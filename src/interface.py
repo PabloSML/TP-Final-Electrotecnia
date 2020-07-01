@@ -269,15 +269,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
                     self.data["psy"] = np.float(self.lineEdit_psy.text())
                 else:
                     allGHomie = False
-            if self.inputType.currentIndex() != 0:
-                self.data["inputType"] = self.inputType.currentText()
-                if self.inputType.currentText() == "Senoide":
-                    if self.lineEdit_f.text() != "":
-                        self.data["f"] = np.float(self.lineEdit_f.text())
-                    else:
-                        allGHomie = False
-            else:
-                allGHomie = False
             if self.plotType.currentIndex() != 0:
                 self.data["plotType"] = self.plotType.currentText()
                 if self.plotType.currentText() == "Bode":
@@ -286,6 +277,19 @@ class myWidget (QMainWindow, Ui_MainWindow):
                     self.data["ampOrFase"] = None
             else:
                 allGHomie = False
+            if self.inputType.currentIndex() != 0:
+                self.data["inputType"] = self.inputType.currentText()
+                if self.lineEdit_A.text() != "":
+                    self.data["A"] = np.float(self.lineEdit_A.text())
+                else:
+                    allGHomie = False
+                if self.inputType.currentText() == "Senoide":
+                    if self.lineEdit_f.text() != "":
+                        self.data["f"] = np.float(self.lineEdit_f.text())
+                    else:
+                        allGHomie = False
+            elif self.plotType.currentText() != "Bode" and self.plotType.currentText() != "Polos/Ceros":
+                allGHomie = False
             if self.lineEdit_KG.text() != "":
                 if self.comboBox_KG.currentText() == "K":
                     self.data["K"] = np.float(self.lineEdit_KG.text())
@@ -293,10 +297,6 @@ class myWidget (QMainWindow, Ui_MainWindow):
                     g = np.float(self.lineEdit_KG.text())
                     self.data["K"] = bck.G2K(g, self.data["filterOrder"],
                                              self.data["filterType"], self.data["w"],self.data["T"], self.data["psy"])
-            else:
-                allGHomie = False
-            if self.lineEdit_A.text() != "":
-                self.data["A"] = np.float(self.lineEdit_A.text())
             else:
                 allGHomie = False
         else:
