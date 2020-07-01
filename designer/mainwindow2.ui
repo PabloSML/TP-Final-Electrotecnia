@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1404</width>
+    <height>971</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>85</red>
+        <green>255</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>85</red>
+        <green>255</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>85</red>
+        <green>255</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
+  <property name="windowTitle">
+   <string>SIMBA</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>94</x>
+      <y>680</y>
+      <width>1200</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1200</width>
+      <height>200</height>
+     </size>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="horizontalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1201</width>
+       <height>191</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_main">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_filter_wrap">
+        <item>
+         <widget class="QGroupBox" name="filterGroupBox">
+          <property name="title">
+           <string>Filtros</string>
+          </property>
+          <widget class="QWidget" name="horizontalLayoutWidget_5">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>20</y>
+             <width>293</width>
+             <height>166</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_filter">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_filter_ddown">
+              <item>
+               <widget class="QComboBox" name="filterOrder">
+                <property name="editable">
+                 <bool>false</bool>
+                </property>
+                <property name="currentText">
+                 <string>Elija Orden...</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Elija Orden...</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Primer Orden</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Segundo Orden</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="filterType">
+                <item>
+                 <property name="text">
+                  <string>Elija Tipo...</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Pasa Bajos</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Pasa Altos</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Pasa Todo</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="filterType2">
+                <item>
+                 <property name="text">
+                  <string>Elija Tipo...</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Pasa Bajos</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Pasa Altos</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Pasa Todo</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Pasa Banda</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Notch</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_filter_values">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_w">
+                <item>
+                 <widget class="QLabel" name="label_w">
+                  <property name="font">
+                   <font>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>ω</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_w"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_T">
+                <item>
+                 <widget class="QLabel" name="label_T">
+                  <property name="font">
+                   <font>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>T</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_T"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_psy">
+                <item>
+                 <widget class="QLabel" name="label_psy">
+                  <property name="font">
+                   <font>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>ξ</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_psy"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_K">
+                <item>
+                 <widget class="QComboBox" name="comboBox_KG">
+                  <item>
+                   <property name="text">
+                    <string>K</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>G</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_KG"/>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_input_wrap">
+        <item>
+         <widget class="QGroupBox" name="inputGroupBox">
+          <property name="title">
+           <string>Entrada</string>
+          </property>
+          <widget class="QWidget" name="horizontalLayoutWidget_9">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>40</y>
+             <width>251</width>
+             <height>91</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_input">
+            <item>
+             <widget class="QComboBox" name="inputType">
+              <item>
+               <property name="text">
+                <string>Elija Señal...</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Senoide</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Pulso</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_input_values">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_A">
+                <item>
+                 <widget class="QLabel" name="label_A">
+                  <property name="font">
+                   <font>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>A</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_A"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_f">
+                <item>
+                 <widget class="QLabel" name="label_f">
+                  <property name="font">
+                   <font>
+                    <pointsize>14</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>f</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_f"/>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_plot_wrap">
+        <item>
+         <widget class="QGroupBox" name="plotGroupBox">
+          <property name="title">
+           <string>Ploteo</string>
+          </property>
+          <widget class="QWidget" name="verticalLayoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>40</x>
+             <y>40</y>
+             <width>211</width>
+             <height>111</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_plot">
+            <item>
+             <widget class="QComboBox" name="plotType">
+              <item>
+               <property name="text">
+                <string>Elija Tipo de Gráfico...</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Salida</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Bode</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Polos/Ceros</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="ampOrFase">
+              <item>
+               <property name="text">
+                <string>Amplitud</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Fase</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_simButton_wrap">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="simButton">
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>225</red>
+                <green>225</green>
+                <blue>225</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>225</red>
+                <green>225</green>
+                <blue>225</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>225</red>
+                <green>225</green>
+                <blue>225</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Simular</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QStackedWidget" name="graphics">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>20</y>
+      <width>1191</width>
+      <height>641</height>
+     </rect>
+    </property>
+    <widget class="QWidget" name="page"/>
+    <widget class="QWidget" name="page_2"/>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider_T">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>880</y>
+      <width>631</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider_w">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>880</y>
+      <width>631</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider_psy">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>880</y>
+      <width>631</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider_KG">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>880</y>
+      <width>631</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider_A">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>880</y>
+      <width>631</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider_f">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>880</y>
+      <width>631</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1404</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
