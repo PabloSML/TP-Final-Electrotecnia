@@ -1,6 +1,5 @@
 # Qt Modules
-#from src.ui.mainwindow import Ui_MainWindow
-from src.ui.mainwindow2 import Ui_MainWindow
+from src.ui.mainwindow import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 import src.backend as bck
@@ -9,9 +8,8 @@ import src.backend as bck
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
-# # Python Module       BORRAR SI NO SE USA
+# Python Module
 import numpy as np
-# from scipy import signal
 
 
 class myWidget (QMainWindow, Ui_MainWindow):
@@ -20,11 +18,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
 
-        #Initial setup
+        # Initial setup
         self.setupUi(self)
         self.setWindowTitle("SIMBA")
         self.simButton.setCheckable(True)
 
+        # User inputted data
         self.data = {
             "filterOrder": None,
             "filterType": None,
@@ -39,18 +38,18 @@ class myWidget (QMainWindow, Ui_MainWindow):
             "f": None
         }
 
-        #Hide assets for first use
+        # Hide assets for first use
         self.hide_order_one()
         self.hide_order_two()
         self.hide_pulse_input()
         self.hide_sin_input()
         self.ampOrFase.hide()
 
-        # # Creates figure and canvas.
+        # Creates figure and canvas.
         self.figure = Figure()
         self.canvas = FigureCanvas(self.figure)
 
-        # Create toolbar, passing canvas as first parament, parent (self, the MainWindow) as second.
+        # Create toolbar
         toolbar = NavigationToolbar(self.canvas, self)
 
         plot_layout = QtWidgets.QVBoxLayout()
@@ -64,10 +63,11 @@ class myWidget (QMainWindow, Ui_MainWindow):
         canvas_index = self.graphics.addWidget(plot_widget)
         self.graphics.setCurrentIndex(canvas_index)
 
-        # # Adds axes to figure.
+        # Adds axes to figure.
         self.axes = self.figure.add_subplot()
 
         # Connections to callbacks
+
         # New filter order chosen
         self.filterOrder.currentIndexChanged.connect(self.orderChange)
         # Switched between K and G
@@ -88,8 +88,9 @@ class myWidget (QMainWindow, Ui_MainWindow):
         # Simulate button pressed
         self.simButton.toggled.connect(self.simButtonPressed)
 
-    #METODOS DE UI VISUALES
+    # METODOS DE UI VISUALES
 
+    # Esconde los metodos de input relacionados con filtros de primer orden
     def hide_order_one(self):
         self.filterType.setCurrentIndex(0)
         self.filterType.hide()
@@ -103,14 +104,14 @@ class myWidget (QMainWindow, Ui_MainWindow):
 
         if self.simButton.isChecked():
             self.simButton.toggle()
-
+    # Muestra los metodos de input relacionados con filtros de primer orden
     def show_order_one(self):
         self.filterType.show()
         self.label_T.show()
         self.lineEdit_T.show()
         self.comboBox_KG.show()
         self.lineEdit_KG.show()
-
+    # Igual a las anteriores pero para orden dos
     def hide_order_two(self):
         self.filterType2.setCurrentIndex(0)
         self.filterType2.hide()
@@ -167,8 +168,9 @@ class myWidget (QMainWindow, Ui_MainWindow):
         self.lineEdit_f.show()
 
 
-    #METODOS DE UI LOGICOS
+    # METODOS DE UI LOGICOS
 
+    # Maneja el cambio de orden del filtro
     def orderChange(self):
 
         if self.filterOrder.currentIndex() == 1:
@@ -184,14 +186,14 @@ class myWidget (QMainWindow, Ui_MainWindow):
         else:
             self.hide_order_one()
             self.hide_order_two()
-
+    # Maneja el cambio entre ingresar K o G
     def kgChange(self):
         self.lineEdit_KG.clear()
         self.data["K"] = None
 
         if self.simButton.isChecked():
             self.simButton.setChecked(False)
-
+    # Maneja el cambio de entrada al sistema
     def inputChange(self):
 
         if self.inputType.currentIndex() == 1:
@@ -205,18 +207,18 @@ class myWidget (QMainWindow, Ui_MainWindow):
         else:
             self.hide_pulse_input()
             self.hide_sin_input()
-
+    # Maneja el cambio de grafico deseado
     def plotChange(self):
 
         if self.plotType.currentText() == "Bode":
             self.ampOrFase.show()
         else:
             self.ampOrFase.hide()
-
+    # Maneja la seleccion de tipo de grafico de Bode (amp/fase)
     def switchBodePlot(self):
 
         self.activateAwesomeness()
-
+    # Maneja el evento de apretado del boton de simulacion (toggle)
     def simButtonPressed(self):
 
         self.activateAwesomeness()
@@ -224,11 +226,11 @@ class myWidget (QMainWindow, Ui_MainWindow):
         if self.simButton.isChecked() is False:
             self.axes.clear()
             self.canvas.draw()
-
+    # Maneja el evento de ingreso de valores a partir de los lineEdits
     def dataInput(self):
 
         self.activateAwesomeness()
-
+    # Si la simulacion esta activada, recolecta los datos necesarios y plotea en la ventana
     def activateAwesomeness(self):
         if self.simButton.isChecked():
             if self.collectData():
@@ -239,7 +241,7 @@ class myWidget (QMainWindow, Ui_MainWindow):
                 msg.setText("Debe ingresar todos los parámetros para simular!")
                 msg.setIcon(QMessageBox.Warning)
                 msg.exec_()
-
+    # Recolecta toda la informacion ingresada por el usuario y la valida en el proceso
     def collectData(self):
         allGHomie = True
 
@@ -307,12 +309,12 @@ class myWidget (QMainWindow, Ui_MainWindow):
             self.dumpData()
 
         return allGHomie
-
+    # Se deshace de todos los valores recolectados para comenzar de nuevo
     def dumpData(self):
 
         for key in self.data:
             self.data[key] = None
-
+    # Dibuja el grafico pedido en la ventana principal
     def plotGraph(self):
         if self.data["plotType"] == "Salida":
             bck.plotOutput(self, bck.filterHandler(self.data["filterType"], self.data["filterOrder"], self.data["K"],

@@ -1,4 +1,4 @@
-from src.test import myWidget
+from src.interface import myWidget
 from PyQt5.QtWidgets import QApplication
 
 if __name__ == '__main__':
