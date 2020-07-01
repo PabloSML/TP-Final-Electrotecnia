@@ -132,8 +132,8 @@ def plotOutput(self,sys,inputtype,A,f):
     #Plot output
     self.axes.plot(output[0],output[1],label= "Salida")
     self.axes.set_xlabel('Tiempo (s)')
-    self.axes.set_ylabel('Amplitud'
-    if inputtype == "Senoide":
+    self.axes.set_ylabel('Amplitud')
+    if inputtype == 'Senoide':
         self.axes.set_xlim(0,(5/f))
     elif inputtype == "Pulso":
         if self.data["filterOrder"] ==1:
